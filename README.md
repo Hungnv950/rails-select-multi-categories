@@ -1,24 +1,11 @@
-# README
+# Select multi categories with rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Chú ý các files:
 
-Things you may want to cover:
+* Migrate
 
-* Ruby version
+* Model
 
-* System dependencies
+* Controller
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Tutorial: https://hungnv950.github.io/2019/12/14/slect-multy-categories/#/
