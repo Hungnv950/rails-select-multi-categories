@@ -1,0 +1,44 @@
+<%= form_for @user do |f| %>
+  <%= f.object.errors.full_messages %> <br />
+
+  username: <%= f.text_field :name %> <br />
+  categories: <br/>
+    <%= f.fields_for :users_categories, @users_categories do |ff| %>
+      <% users_categories = f.object.users_categories %>
+      <% category = ff.object %>
+      <% is_selected = users_categories.map{|c| c.key_name}.include?(category.key_name) %>
+      <% other_content = users_categories.select{|c| c.key_name == "other_content"}.first&.other_content %>
+
+      <label>
+        <%= ff.check_box :_destroy, {checked: is_selected, class: "#{'js-select-other_content' if category.key_name == 'other_content'}"}, 0, 1 %>
+        <%= ff.hidden_field :category_id %>
+        <%= category.content %>
+        <% if category.key_name == "other_content" %>
+          <%= ff.text_field :other_content, value: other_content,class: "js-other_content-field hidden" %>
+        <% end %>
+      </label>
+      <br/>
+    <% end %>
+  <%= f.submit %>
+<% end %>
+
+<script>
+  $(function() {
+    //  Xử lý khi lần đầu vào trang
+    if ($('.js-select-other_content').is(':checked')) {
+      $('.js-other_content-field').removeClass('hidden');
+    }
+
+    //  Xử lý với trường hợp người dùng click vào `other_category`
+    $('.js-select-other_content').change(function () {
+      var self = $(this),
+          otherContent = $('.js-other_content-field');
+      if (self.is(':checked')) {
+        otherContent.removeClass('hidden').focus();
+        self.closest('.form-category').scrollTop(9999);
+      } else {
+        otherContent.addClass('hidden');
+      }
+    });
+  });
+</script>
